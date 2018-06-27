@@ -27,14 +27,14 @@ public class hrisTest {
    
   @Test 
   public void CorrectCredentialsTest() {
-	 Assert.assertTrue(appObject.CorrectCredentials("prkrishnakumar","Krishna@321#").isloginpage());
+	 Assert.assertTrue(appObject.CorrectCredentials("prkrishnakumar","***********").isloginpage());
 
   }
 
   
   @BeforeClass
   public void beforeClass() throws InterruptedException {
-	  appObject.launchHris(driver);
+	  appObject.launchHris();
 	  }
 
   @AfterClass
