@@ -1,45 +1,48 @@
 package com.HrisAutomation.hrisLoginTest;
 
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class hrisTest {
-	
-   WebDriver driver;
-  App appObject = new App();
- 
- @Test 
-  public void NoPasswordTest() {
-	  appObject.NoPassword("prkrishnakumar","");
-      Assert.assertTrue(appObject.isPasswordEntryAnnotated());  
 
-  }  
- 
-  @Test 
-  public void WrongPasswordTest() {
-	  Assert.assertTrue(appObject.WrongPassword("prkrishnaar","krishna123").contains("Invalid Login"));
-	  
-  }
-   
-  @Test 
-  public void CorrectCredentialsTest() {
-	 Assert.assertTrue(appObject.CorrectCredentials("prkrishnakumar","***********").isloginpage());
+	App appObject;
+	TestTimesheet timeObject;
 
-  }
+	public hrisTest()
+	{
+		appObject = new App();
+	}
+	@BeforeClass
+	public void beforeClass(){
+		appObject.launchHris();
+	}
 
-  
-  @BeforeClass
-  public void beforeClass() throws InterruptedException {
-	  appObject.launchHris();
-	  }
+	@Test (priority = 0)
+	public void NoPasswordTest() {
+		appObject.NoPassword("p**********ar","");
+		Assert.assertTrue(appObject.isPasswordEntryAnnotated());
+	}   
+	@Test (priority = 1)
+	public void WrongPasswordTest() {
+		Assert.assertTrue(appObject.WrongPassword("pr*********r","k*******3").contains("Invalid Login"));
+	}   
+	@Test (priority = 2)
+	public void CorrectCredentialsTest() {
+		Assert.assertTrue(appObject.CorrectCredentials("p**************r","K***********#").isloginpage());
+	}  
 
-  @AfterClass
-  public void afterClass() {
- driver.quit();
-  }
+	@Test (priority = 3)
+	public void logoutUser()
+	{
+		Assert.assertTrue(appObject.logoutUserAccount().logoutHris(), "user logout successful");
+	}
 
-  }
+	@AfterClass
+	public void afterClass() {
+		appObject.closeBrowser();
+	}
+
+}
+
